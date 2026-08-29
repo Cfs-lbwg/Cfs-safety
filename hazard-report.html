@@ -7,7 +7,12 @@
 <meta name="mobile-web-app-capable" content="yes">
 <meta name="apple-mobile-web-app-status-bar-style" content="black-translucent">
 <meta name="theme-color" content="#14171a">
+<meta name="description" content="Confidential CFS hazard report (HAZREP) — file a hazard to the Safety Office in under a minute.">
 <title>HAZREP</title>
+<link rel="manifest" href="./manifest.json">
+<link rel="icon" href="./favicon.ico" sizes="any">
+<link rel="icon" type="image/png" href="./icon-192.png">
+<link rel="apple-touch-icon" href="./apple-touch-icon.png">
 <style>
   :root {
     --panel: #14171a;
@@ -152,45 +157,17 @@
   </div>
 </div>
 
+<script src="./app.js"></script>
 <script>
-  const SAFETY_OFFICE_EMAIL = "Cfs@telkomsa.net";
-
-  const typeSegment = document.getElementById('typeSegment');
-  let hazardCategory = 'Flying';
-  typeSegment.addEventListener('click', (e) => {
-    const btn = e.target.closest('button');
-    if (!btn) return;
-    typeSegment.querySelectorAll('button').forEach(b => b.classList.remove('active'));
-    btn.classList.add('active');
-    hazardCategory = btn.dataset.value;
-  });
-
   const dtgEl = document.getElementById('dtg');
-  const MONTHS = ['Jan','Feb','Mar','Apr','May','Jun','Jul','Aug','Sep','Oct','Nov','Dec'];
-  function pad(n) { return String(n).padStart(2, '0'); }
-  function formatDTG(d) {
-    const bravo = new Date(d.getTime() + 2 * 60 * 60000);
-    const day = pad(bravo.getUTCDate());
-    const hour = pad(bravo.getUTCHours());
-    const min = pad(bravo.getUTCMinutes());
-    const mon = MONTHS[bravo.getUTCMonth()];
-    const yr = pad(bravo.getUTCFullYear() % 100);
-    return `${day}${hour}${min}B ${mon} ${yr}`;
-  }
-  function tickDTG() { dtgEl.textContent = formatDTG(new Date()); }
-  tickDTG();
-  setInterval(tickDTG, 1000);
+  CFS.startClock(dtgEl);
+  CFS.initTextareas();
 
-  function autoGrow(el) {
-    el.style.height = 'auto';
-    el.style.height = el.scrollHeight + 'px';
-  }
-  document.querySelectorAll('textarea').forEach(el => {
-    autoGrow(el);
-    el.addEventListener('input', () => autoGrow(el));
-  });
+  const typeSeg = CFS.makeSegment('typeSegment', 'Flying');
+  const store = CFS.autosave('cfs-hazard-report');
 
   function buildReportText() {
+    const hazardCategory = typeSeg.get();
     const ohs = document.getElementById('ohs').checked;
     const eventDescription = document.getElementById('eventDescription').value.trim();
     const remedy = document.getElementById('remedy').value.trim();
@@ -228,41 +205,16 @@
     return true;
   }
 
-  document.getElementById('sendBtn').addEventListener('click', () => {
-    if (!validate()) return;
-    const text = buildReportText();
-    const subject = encodeURIComponent(`HAZREP ${dtgEl.textContent} \u2014 ${hazardCategory}`);
-    const body = encodeURIComponent(text);
-    window.location.href = `mailto:${SAFETY_OFFICE_EMAIL}?subject=${subject}&body=${body}`;
+  CFS.wireActions({
+    validate: validate,
+    buildReportText: buildReportText,
+    buildSubject: function () {
+      return `HAZREP ${dtgEl.textContent} \u2014 ${typeSeg.get()}`;
+    },
+    store: store
   });
 
-  document.getElementById('copyBtn').addEventListener('click', async () => {
-    if (!validate()) return;
-    const text = buildReportText();
-    const btn = document.getElementById('copyBtn');
-    try {
-      await navigator.clipboard.writeText(text);
-      btn.textContent = 'Copied \u2713';
-    } catch (err) {
-      const ta = document.createElement('textarea');
-      ta.value = text;
-      ta.style.position = 'fixed';
-      ta.style.opacity = '0';
-      document.body.appendChild(ta);
-      ta.select();
-      try { document.execCommand('copy'); btn.textContent = 'Copied \u2713'; }
-      catch (e) { btn.textContent = 'Copy failed'; }
-      document.body.removeChild(ta);
-    }
-    setTimeout(() => { btn.textContent = 'Copy Report Text'; }, 2500);
-  });
-</script>
-<script>
-  if ('serviceWorker' in navigator) {
-    window.addEventListener('load', () => {
-      navigator.serviceWorker.register('./sw.js').catch(() => {});
-    });
-  }
+  CFS.registerServiceWorker();
 </script>
 </body>
 </html>

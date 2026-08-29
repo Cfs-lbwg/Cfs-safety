@@ -7,7 +7,12 @@
 <meta name="mobile-web-app-capable" content="yes">
 <meta name="apple-mobile-web-app-status-bar-style" content="black-translucent">
 <meta name="theme-color" content="#14171a">
+<meta name="description" content="Confidential hazard and mishap reporting for CFS — quick mobile forms for the Safety Office.">
 <title>CFS Safety Reporting</title>
+<link rel="manifest" href="./manifest.json">
+<link rel="icon" href="./favicon.ico" sizes="any">
+<link rel="icon" type="image/png" href="./icon-192.png">
+<link rel="apple-touch-icon" href="./apple-touch-icon.png">
 <style>
   :root {
     --panel: #14171a;
@@ -63,12 +68,7 @@
     <span class="tile-sub">Initial facts for BASCO</span>
   </a>
 </div>
-<script>
-  if ('serviceWorker' in navigator) {
-    window.addEventListener('load', () => {
-      navigator.serviceWorker.register('./sw.js').catch(() => {});
-    });
-  }
-</script>
+<script src="./app.js"></script>
+<script>CFS.registerServiceWorker();</script>
 </body>
 </html>
