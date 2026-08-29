@@ -1,4 +1,4 @@
-const CACHE_NAME = 'cfs-safety-tools-v4';
+const CACHE_NAME = 'cfs-safety-tools-v5';
 const ASSETS = [
   './',
   './index.html',
@@ -6,11 +6,15 @@ const ASSETS = [
   './confidential-safety-report.html',
   './app.js',
   './manifest.json',
-  './icon-192.png',
-  './icon-512.png',
-  './icon-maskable-512.png',
-  './apple-touch-icon.png',
-  './favicon.ico'
+  './favicon.ico',
+  './icon-192-dark.png',
+  './icon-512-dark.png',
+  './icon-maskable-512-dark.png',
+  './apple-touch-icon-dark.png',
+  './icon-192-light.png',
+  './icon-512-light.png',
+  './icon-maskable-512-light.png',
+  './apple-touch-icon-light.png'
 ];
 
 self.addEventListener('install', (event) => {
