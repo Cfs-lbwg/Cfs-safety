@@ -59,7 +59,9 @@ window.CFS = (function () {
     return seg;
   }
 
-  /* Auto-save every field to localStorage; restore on load. */
+  /* Auto-save every field to localStorage; restore on load unless the
+     draft is older than MAX_DRAFT_AGE_MS (24 hours). */
+  var MAX_DRAFT_AGE_MS = 24 * 60 * 60 * 1000;
   function autosave(storageKey) {
     function fields() {
       return Array.prototype.slice.call(
@@ -68,7 +70,7 @@ window.CFS = (function () {
     }
 
     function collect() {
-      var data = { __segments: {} };
+      var data = { __segments: {}, __savedAt: Date.now() };
       fields().forEach(function (f) {
         data[f.id] = (f.type === 'checkbox') ? f.checked : f.value;
       });
@@ -80,6 +82,10 @@ window.CFS = (function () {
       var saved;
       try { saved = JSON.parse(localStorage.getItem(storageKey) || 'null'); } catch (e) { return; }
       if (!saved) return;
+      if (!saved.__savedAt || (Date.now() - saved.__savedAt) > MAX_DRAFT_AGE_MS) {
+        clear();
+        return;
+      }
       fields().forEach(function (f) {
         if (!(f.id in saved) || saved[f.id] == null) return;
         if (f.type === 'checkbox') f.checked = saved[f.id];
