@@ -61,9 +61,9 @@
     background-image: url('data:image/svg+xml;utf8,<svg xmlns="http://www.w3.org/2000/svg" width="10" height="6"><path d="M0 0l5 6 5-6z" fill="%238b9199"/></svg>');
     background-repeat: no-repeat; background-position: right 12px center; font-size: 15px;
   }
-  .pair { display: grid; grid-template-columns: 1fr 1fr; gap: 12px; }
-  .pair .field { margin-top: 14px; }
-  .pair .field:first-of-type { margin-top: 0; }
+  .pair { display: grid; grid-template-columns: 1fr 1fr; gap: 12px; align-items: end; }
+  .pair .field { margin-top: 0; }
+  .pair .field label { min-height: 1em; }
   .segmented { display: flex; border: 1px solid var(--rule); border-radius: var(--radius); overflow: hidden; }
   .segmented button {
     flex: 1; padding: 11px 6px; font-size: 12px; letter-spacing: 0.04em; text-transform: uppercase;
