@@ -1,4 +1,4 @@
-const CACHE_NAME = 'cfs-safety-tools-v2';
+const CACHE_NAME = 'cfs-safety-tools-v3';
 const ASSETS = [
   './',
   './index.html',
