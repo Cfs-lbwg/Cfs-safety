@@ -1,4 +1,4 @@
-const CACHE_NAME = 'cfs-safety-tools-v5';
+const CACHE_NAME = 'cfs-safety-tools-v6';
 const ASSETS = [
   './',
   './index.html',
@@ -6,6 +6,7 @@ const ASSETS = [
   './confidential-safety-report.html',
   './app.js',
   './manifest.json',
+  './crest.png',
   './favicon.ico',
   './icon-192-dark.png',
   './icon-512-dark.png',
