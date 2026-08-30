@@ -1,13 +1,13 @@
-const CACHE_NAME = 'cfs-safety-tools-v6';
+const CACHE_NAME = 'cfs-safety-tools-v7';
 const ASSETS = [
   './',
   './index.html',
   './hazard-report.html',
   './confidential-safety-report.html',
   './worker-nomination.html',
-  './print-nomination.html'
+  './print-nomination.html',
   './print-hazrep.html',
-  './print-mishap.html',
+  './print-mishap.html'
 ];
 
 self.addEventListener('install', (event) => {
