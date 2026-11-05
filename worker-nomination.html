@@ -2,350 +2,41 @@
 <html lang="en">
 <head>
 <meta charset="UTF-8">
-<meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0">
-<meta name="apple-mobile-web-app-capable" content="yes">
-<meta name="mobile-web-app-capable" content="yes">
-<meta name="apple-mobile-web-app-status-bar-style" content="black-translucent">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
 <meta name="theme-color" content="#14171a">
-<link rel="manifest" href="./manifest.json">
-<title>Worker of the Month</title>
+<meta http-equiv="refresh" content="10;url=https://cfs-safety.cfssafety22.workers.dev">
+<title>CFS Safety Reporting has moved</title>
 <style>
-  :root {
-    --panel: #14171a; --panel-raised: #1c2024; --ink: #eef0ef; --ink-dim: #8b9199;
-    --caution: #d99a3d; --rule: #2a2f34; --radius: 2px;
-  }
-  * { box-sizing: border-box; }
-  @media (prefers-reduced-motion: reduce) { * { transition: none !important; } }
-  html, body {
-    margin: 0; padding: 0; background: var(--panel); color: var(--ink);
-    font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, Helvetica, Arial, sans-serif;
-    -webkit-font-smoothing: antialiased;
-  }
-  .mono { font-family: ui-monospace, SFMono-Regular, "SF Mono", Menlo, Consolas, monospace; }
-  .wrap { max-width: 480px; margin: 0 auto; padding: 32px 20px 48px; }
-  header { margin-bottom: 8px; }
-  .eyebrow { font-size: 11px; letter-spacing: 0.16em; text-transform: uppercase; color: var(--ink-dim); margin: 0 0 14px; }
-  .stamp { font-size: 15px; letter-spacing: 0.02em; color: var(--caution); margin: 0 0 20px; }
-  h1 { font-size: 21px; font-weight: 600; margin: 0 0 8px; letter-spacing: -0.01em; }
-  .desc { font-size: 13px; color: var(--ink-dim); line-height: 1.55; margin: 0 0 28px; }
-  .logline { border-top: 1px solid var(--rule); padding: 18px 0; }
-  .logline:last-of-type { border-bottom: 1px solid var(--rule); }
-  .logline label, .confidential label {
-    display: block; font-size: 11px; letter-spacing: 0.08em; text-transform: uppercase;
-    color: var(--ink-dim); margin-bottom: 10px;
-  }
-  input[type="text"], textarea, select {
-    width: 100%; padding: 11px 12px; font-size: 16px; font-family: inherit;
-    border: 1px solid var(--rule); border-radius: var(--radius);
-    background: var(--panel-raised); color: var(--ink);
-  }
-  input.field-invalid { border-color: var(--caution); }
-  input::placeholder, textarea::placeholder { color: #565c62; }
-  input:focus, textarea:focus, select:focus {
-    outline: none; border-color: var(--ink-dim); box-shadow: 0 0 0 1px var(--ink-dim);
-  }
-  textarea { resize: none; overflow-y: hidden; min-height: 64px; line-height: 1.5; }
-  select {
-    padding-right: 34px; appearance: none; -webkit-appearance: none;
-    background-image: url('data:image/svg+xml;utf8,<svg xmlns="http://www.w3.org/2000/svg" width="10" height="6"><path d="M0 0l5 6 5-6z" fill="%238b9199"/></svg>');
-    background-repeat: no-repeat; background-position: right 12px center; font-size: 15px;
-  }
-  .pair { display: grid; grid-template-columns: 1fr 1fr; gap: 12px; }
-  .category { border: 1px solid var(--rule); border-radius: var(--radius); padding: 14px; margin-bottom: 14px; }
-  .category .cat-title { font-size: 13px; font-weight: 600; color: var(--ink); margin-bottom: 4px; }
-  .category .cat-instr { font-size: 12px; color: var(--ink-dim); margin-bottom: 12px; line-height: 1.4; }
-  .category select { margin-bottom: 10px; }
-  .confidential { margin-top: 4px; padding: 16px 0 4px; }
-  .confidential .tag { font-size: 11px; letter-spacing: 0.08em; text-transform: uppercase; color: var(--ink-dim); margin-bottom: 16px; }
-  .confidential .field { margin-bottom: 16px; }
-  .actions { margin-top: 28px; }
-  button.primary, button.secondary {
-    width: 100%; padding: 15px; font-size: 14px; font-weight: 600; letter-spacing: 0.02em;
-    font-family: inherit; border-radius: var(--radius); cursor: pointer; border: none;
-  }
-  button.primary { background: var(--ink); color: var(--panel); margin-bottom: 10px; }
-  button.secondary { background: transparent; color: var(--ink); border: 1px solid var(--rule); }
-  button.primary:active, button.secondary:active { opacity: 0.8; }
-  .error { font-size: 12px; color: var(--caution); margin-top: 8px; display: none; }
-  .error.show { display: block; }
-
-  #installBanner {
-    position: fixed; left: 0; right: 0; bottom: 0; z-index: 999;
-    background: var(--panel-raised); border-top: 1px solid var(--rule);
-    padding: 12px 16px; display: none; align-items: center; gap: 12px;
-  }
-  #installBanner.show { display: flex; }
-  #installBanner .msg { flex: 1; color: var(--ink); font-size: 13px; line-height: 1.4; }
-  #installBanner .installBtn {
-    background: var(--ink); color: var(--panel); border: none; border-radius: var(--radius);
-    padding: 8px 12px; font-size: 12px; font-weight: 600; cursor: pointer; white-space: nowrap;
-  }
-  #installBanner .closeBtn {
-    background: none; border: none; color: var(--ink-dim); font-size: 20px; cursor: pointer;
-    padding: 0 4px; line-height: 1;
-  }
+  * { box-sizing:border-box; }
+  html,body { margin:0; background:#14171a; color:#eef0ef; font-family:-apple-system,BlinkMacSystemFont,"Segoe UI",Roboto,Helvetica,Arial,sans-serif; -webkit-font-smoothing:antialiased; }
+  .wrap { max-width:480px; margin:0 auto; padding:32px 20px 48px; }
+  .eyebrow { font-size:11px; letter-spacing:.16em; text-transform:uppercase; color:#8b9199; margin:0 0 14px; }
+  h1 { font-size:22px; font-weight:600; margin:0 0 12px; }
+  h2 { font-size:14px; margin:28px 0 8px; color:#d99a3d; text-transform:uppercase; letter-spacing:.06em; }
+  p, li { font-size:15px; line-height:1.55; color:#eef0ef; }
+  .dim { color:#8b9199; font-size:13px; }
+  a.btn { display:block; text-align:center; background:#d99a3d; color:#14171a; font-weight:700; font-size:17px; text-decoration:none; padding:16px 12px; border-radius:8px; margin:20px 0 10px; }
+  ol { padding-left:20px; margin:0; }
 </style>
 </head>
 <body>
-<div id="installBanner">
-  <span class="msg" id="installMsg"></span>
-  <button class="installBtn" id="installBtn" style="display:none;">Install</button>
-  <button class="closeBtn" id="installClose">&times;</button>
-</div>
 <div class="wrap">
-  <header>
-    <p class="eyebrow">CENTRAL·FLYING·SCHOOL</p>
-    <p class="stamp mono" id="dtg">—</p>
-    <h1>WORKER OF THE MONTH</h1>
-    <p class="desc">Nominate a colleague — Scoring and totals are finalised by Management.</p>
-  </header>
-
-  <div class="logline">
-    <label>Nominee</label>
-    <input type="text" id="nomineeRank" placeholder="Rank" style="margin-bottom:12px;">
-    <input type="text" id="nomineeForceNo" placeholder="Force No" style="margin-bottom:12px;">
-    <input type="text" id="nomineeIS" placeholder="Initials and Surname" style="margin-bottom:12px;">
-    <input type="text" id="nomineeSection" placeholder="CFS Section">
-  </div>
-
-  <div class="logline">
-    <div class="category">
-      <div class="cat-title">Current daily tasks</div>
-      <div class="cat-instr">How well does the member perform his daily tasks. (1-5)</div>
-      <select id="score0">
-        <option value="" selected disabled>Score</option>
-        <option value="1">1</option><option value="2">2</option><option value="3">3</option><option value="4">4</option><option value="5">5</option>
-      </select>
-      <textarea id="desc0" placeholder="Description"></textarea>
-    </div>
-
-    <div class="category">
-      <div class="cat-title">Action for which member is nominated</div>
-      <div class="cat-instr">Please rate the level at which the nominee executed action. (1-5)</div>
-      <select id="score1">
-        <option value="" selected disabled>Score</option>
-        <option value="1">1</option><option value="2">2</option><option value="3">3</option><option value="4">4</option><option value="5">5</option>
-      </select>
-      <textarea id="desc1" placeholder="Description"></textarea>
-    </div>
-
-    <div class="category">
-      <div class="cat-title">Level of Commitment and Dedication</div>
-      <div class="cat-instr">Please rate the level of commitment and dedication of member. (1-5)</div>
-      <select id="score2">
-        <option value="" selected disabled>Score</option>
-        <option value="1">1</option><option value="2">2</option><option value="3">3</option><option value="4">4</option><option value="5">5</option>
-      </select>
-      <textarea id="desc2" placeholder="Description"></textarea>
-    </div>
-
-    <div class="category">
-      <div class="cat-title">Level of Impact on the organisation</div>
-      <div class="cat-instr">Please rate the impact of the member's action on the SAAF. (1-5)</div>
-      <select id="score3">
-        <option value="" selected disabled>Score</option>
-        <option value="1">1</option><option value="2">2</option><option value="3">3</option><option value="4">4</option><option value="5">5</option>
-      </select>
-    </div>
-  </div>
-
-  <div class="confidential">
-    <p class="tag">Submitted by</p>
-    <div class="pair">
-      <div class="field"><label for="submitterRank">Rank</label><input type="text" id="submitterRank" placeholder="Mandatory"></div>
-      <div class="field"><label for="submitterIS">Initials and Surname</label><input type="text" id="submitterIS" placeholder="Mandatory"></div>
-    </div>
-  </div>
-
-  <div class="actions">
-    <button class="primary" id="sendBtn">Send as Email</button>
-    <button class="secondary" id="copyBtn" style="margin-bottom:10px;">Copy Nomination Text</button>
-    <button class="secondary" id="downloadBtn">Download CSV</button>
-    <div class="error" id="formError">Please complete all required fields (highlighted).</div>
-  </div>
+  <p class="eyebrow">Central · Flying · School</p>
+  <h1>The Safety app has moved</h1>
+  <p>This old app is being switched off. Open the new Safety app and install it on your phone.</p>
+  <a class="btn" href="https://cfs-safety.cfssafety22.workers.dev">Open the new app</a>
+  <p class="dim">Opening the new app automatically in <span id="n">10</span> seconds&hellip;</p>
+  <h2>After you install the new app</h2>
+  <ol>
+    <li>In the new app, tap <b>Install</b> or <b>Add to Home Screen</b>.</li>
+    <li>Delete this old icon: <b>Android</b> &ndash; press and hold the old icon, then choose Uninstall or Remove. <b>iPhone</b> &ndash; press and hold the old icon, choose Remove App, then Delete from Home Screen.</li>
+  </ol>
 </div>
-
 <script>
-  const SAFETY_OFFICE_EMAIL = "Cfssafety22@gmail.com";
-
-  const dtgEl = document.getElementById('dtg');
-  const MONTHS = ['Jan','Feb','Mar','Apr','May','Jun','Jul','Aug','Sep','Oct','Nov','Dec'];
-  function pad(n) { return String(n).padStart(2, '0'); }
-  function bravoDate(d) { return new Date(d.getTime() + 2 * 60 * 60000); }
-  function formatDTG(d) {
-    const b = bravoDate(d);
-    return `${pad(b.getUTCDate())}${pad(b.getUTCHours())}${pad(b.getUTCMinutes())}B ${MONTHS[b.getUTCMonth()]} ${pad(b.getUTCFullYear() % 100)}`;
-  }
-  function tickDTG() { dtgEl.textContent = formatDTG(new Date()); }
-  tickDTG();
-  setInterval(tickDTG, 1000);
-
-  function autoGrow(el) { el.style.height = 'auto'; el.style.height = el.scrollHeight + 'px'; }
-  document.querySelectorAll('textarea').forEach(el => {
-    autoGrow(el);
-    el.addEventListener('input', () => autoGrow(el));
-  });
-
-  function collectFields() {
-    return {
-      nomineeRank: document.getElementById('nomineeRank').value.trim(),
-      nomineeForceNo: document.getElementById('nomineeForceNo').value.trim(),
-      nomineeIS: document.getElementById('nomineeIS').value.trim(),
-      nomineeSection: document.getElementById('nomineeSection').value.trim(),
-      score0: document.getElementById('score0').value,
-      desc0: document.getElementById('desc0').value.trim(),
-      score1: document.getElementById('score1').value,
-      desc1: document.getElementById('desc1').value.trim(),
-      score2: document.getElementById('score2').value,
-      desc2: document.getElementById('desc2').value.trim(),
-      score3: document.getElementById('score3').value,
-      submitterRank: document.getElementById('submitterRank').value.trim(),
-      submitterIS: document.getElementById('submitterIS').value.trim()
-    };
-  }
-
-  function buildReportText() {
-    const f = collectFields();
-    let lines = [];
-    lines.push(`Timestamp: ${dtgEl.textContent}`);
-    lines.push(`Nominee: Rank ${f.nomineeRank || '\u2014'}, Force No ${f.nomineeForceNo || '\u2014'}, ${f.nomineeIS}, CFS/${f.nomineeSection || '\u2014'}`);
-    lines.push('');
-    lines.push(`Current daily tasks \u2014 Score: ${f.score0 || '\u2014'}`);
-    if (f.desc0) lines.push(`  Description: ${f.desc0}`);
-    lines.push(`Action for which member is nominated \u2014 Score: ${f.score1 || '\u2014'}`);
-    if (f.desc1) lines.push(`  Description: ${f.desc1}`);
-    lines.push(`Level of Commitment and Dedication \u2014 Score: ${f.score2 || '\u2014'}`);
-    if (f.desc2) lines.push(`  Description: ${f.desc2}`);
-    lines.push(`Impact of action \u2014 Score: ${f.score3 || '\u2014'}`);
-    lines.push('');
-    lines.push(`Submitted by: ${f.submitterRank}, ${f.submitterIS}`);
-    return lines.join('\n');
-  }
-
-  const REQUIRED_FIELDS = ['nomineeIS', 'submitterRank', 'submitterIS'];
-
-  function validate() {
-    let firstInvalid = null;
-    REQUIRED_FIELDS.forEach((id) => {
-      const el = document.getElementById(id);
-      const empty = !el.value.trim();
-      el.classList.toggle('field-invalid', empty);
-      if (empty && !firstInvalid) firstInvalid = el;
-    });
-    const errorEl = document.getElementById('formError');
-    if (firstInvalid) {
-      errorEl.classList.add('show');
-      firstInvalid.focus();
-      firstInvalid.scrollIntoView({ block: 'center', behavior: 'smooth' });
-      return false;
-    }
-    errorEl.classList.remove('show');
-    return true;
-  }
-
-  document.getElementById('sendBtn').addEventListener('click', () => {
-    if (!validate()) return;
-    const f = collectFields();
-    const text = buildReportText();
-    const subject = encodeURIComponent(`[NOMINATION] ${dtgEl.textContent} \u2014 ${f.nomineeIS}`);
-    const body = encodeURIComponent(text);
-    window.location.href = `mailto:${SAFETY_OFFICE_EMAIL}?subject=${subject}&body=${body}`;
-  });
-
-  document.getElementById('copyBtn').addEventListener('click', async () => {
-    if (!validate()) return;
-    const text = buildReportText();
-    const btn = document.getElementById('copyBtn');
-    try {
-      await navigator.clipboard.writeText(text);
-      btn.textContent = 'Copied \u2713';
-    } catch (err) {
-      const ta = document.createElement('textarea');
-      ta.value = text; ta.style.position = 'fixed'; ta.style.opacity = '0';
-      document.body.appendChild(ta); ta.select();
-      try { document.execCommand('copy'); btn.textContent = 'Copied \u2713'; }
-      catch (e) { btn.textContent = 'Copy failed'; }
-      document.body.removeChild(ta);
-    }
-    setTimeout(() => { btn.textContent = 'Copy Nomination Text'; }, 2500);
-  });
-
-  function csvField(val) {
-    const s = String(val ?? '');
-    return /[",\n]/.test(s) ? '"' + s.replace(/"/g, '""') + '"' : s;
-  }
-  function downloadCSV(filename, headers, values) {
-    const csv = headers.map(csvField).join(',') + '\n' + values.map(csvField).join(',') + '\n';
-    const blob = new Blob([csv], { type: 'text/csv;charset=utf-8;' });
-    const url = URL.createObjectURL(blob);
-    const a = document.createElement('a');
-    a.href = url; a.download = filename;
-    document.body.appendChild(a); a.click(); document.body.removeChild(a);
-    URL.revokeObjectURL(url);
-  }
-
-  document.getElementById('downloadBtn').addEventListener('click', () => {
-    if (!validate()) return;
-    const f = collectFields();
-    const headers = ['Time','R0','F0','IS0','SECTION','S0','DESC0','S1','DESC1','S2','DESC2','S3','R1','IS1'];
-    const values = [dtgEl.textContent, f.nomineeRank, f.nomineeForceNo, f.nomineeIS, f.nomineeSection,
-      f.score0, f.desc0, f.score1, f.desc1, f.score2, f.desc2, f.score3, f.submitterRank, f.submitterIS];
-    const safeStamp = dtgEl.textContent.replace(/[^A-Za-z0-9]/g, '');
-    downloadCSV(`nomination-${safeStamp}.csv`, headers, values);
-  });
-</script>
-
-<script>
-  (function() {
-    const KEY = 'cfsInstallDismissed';
-    function isStandalone() {
-      return window.matchMedia('(display-mode: standalone)').matches || window.navigator.standalone === true;
-    }
-    function isIOS() {
-      return /iPad|iPhone|iPod/.test(navigator.userAgent) && !window.MSStream;
-    }
-    if (isStandalone()) return;
-    let dismissed = false;
-    try { dismissed = localStorage.getItem(KEY) === '1'; } catch (e) {}
-    if (dismissed) return;
-
-    const banner = document.getElementById('installBanner');
-    const msg = document.getElementById('installMsg');
-    const installBtn = document.getElementById('installBtn');
-    const closeBtn = document.getElementById('installClose');
-    let deferredPrompt = null;
-
-    function dismiss() {
-      banner.classList.remove('show');
-      try { localStorage.setItem(KEY, '1'); } catch (e) {}
-    }
-    closeBtn.addEventListener('click', dismiss);
-
-    if (isIOS()) {
-      msg.textContent = '\uD83D\uDCF2 For the best experience, tap the Share icon and select "Add to Home Screen"';
-      banner.classList.add('show');
-    } else {
-      window.addEventListener('beforeinstallprompt', (e) => {
-        e.preventDefault();
-        deferredPrompt = e;
-        msg.textContent = 'Install this app for one-tap access, even offline.';
-        installBtn.style.display = '';
-        banner.classList.add('show');
-      });
-      installBtn.addEventListener('click', () => {
-        if (!deferredPrompt) return;
-        deferredPrompt.prompt();
-        deferredPrompt.userChoice.then(() => dismiss());
-      });
-    }
+  (function () {
+    var n = 10, el = document.getElementById('n');
+    var t = setInterval(function () { n--; if (el) el.textContent = n; if (n <= 0) { clearInterval(t); location.replace('https://cfs-safety.cfssafety22.workers.dev'); } }, 1000);
   })();
-</script>
-<script>
-  if ('serviceWorker' in navigator) {
-    window.addEventListener('load', () => {
-      navigator.serviceWorker.register('./sw.js').catch(() => {});
-    });
-  }
 </script>
 </body>
 </html>

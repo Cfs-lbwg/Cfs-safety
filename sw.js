@@ -1,48 +1,15 @@
-const CACHE_NAME = 'cfs-safety-tools-v7';
-const ASSETS = [
-  './',
-  './index.html',
-  './hazard-report.html',
-  './confidential-safety-report.html',
-  './worker-nomination.html',
-  './print-nomination.html',
-  './print-hazrep.html',
-  './print-mishap.html',
-  './manifest.json',
-  './icon-192.png',
-  './icon-512.png'
-];
-
-self.addEventListener('install', (event) => {
-  event.waitUntil(
-    caches.open(CACHE_NAME)
-      .then((cache) => cache.addAll(ASSETS))
-      .then(() => self.skipWaiting())
-  );
-});
-
+// Phase 1: moves everyone to the new app.
+// Replaces the old caching service worker. On activation it clears every old cached page and sends any open window to the
+// same-origin index.html, which then forwards to the new app (a service worker may only navigate within its own site).
+// It has no fetch handler, so every page now comes straight from the network.
+self.addEventListener('install', () => self.skipWaiting());
 self.addEventListener('activate', (event) => {
-  event.waitUntil(
-    caches.keys().then((names) =>
-      Promise.all(names.filter((n) => n !== CACHE_NAME).map((n) => caches.delete(n)))
-    ).then(() => self.clients.claim())
-  );
-});
-
-self.addEventListener('fetch', (event) => {
-  if (event.request.method !== 'GET') return;
-  event.respondWith(
-    caches.match(event.request).then((cached) => {
-      const network = fetch(event.request)
-        .then((response) => {
-          if (response && response.ok) {
-            const copy = response.clone();
-            caches.open(CACHE_NAME).then((cache) => cache.put(event.request, copy));
-          }
-          return response;
-        })
-        .catch(() => cached);
-      return cached || network;
-    })
-  );
+  event.waitUntil((async () => {
+    const keys = await caches.keys();
+    await Promise.all(keys.map((k) => caches.delete(k)));
+    await self.clients.claim();
+    const home = new URL('index.html', self.registration.scope).href;
+    const wins = await self.clients.matchAll({ type: 'window', includeUncontrolled: true });
+    wins.forEach((w) => { try { w.navigate(home); } catch (e) { /* ignore */ } });
+  })());
 });
